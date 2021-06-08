@@ -31,6 +31,8 @@ for index, row in df.iterrows():
     category = path_hashmap[row['File'][0]]
     filename = f"{input_directory}{category}\\{row['File']}.wav"
     output_filename = f"{output_directory}{row['File']}.wav"
+
+    # Extraction de phoneme
     audio = AudioSegment.from_file(file=filename, format="wav", frame_rate=16000)
     audio_clipped = audio[int(row['Start']):row['End']]
     audio_clipped.export(output_filename, format="wav")
