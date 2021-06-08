@@ -139,5 +139,5 @@ cython_debug/
 
 # Others
 .idea/
-dataset/
+dataset/*
 libraries/
