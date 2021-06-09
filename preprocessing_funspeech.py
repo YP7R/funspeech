@@ -3,6 +3,7 @@ import shutil
 import glob
 import pandas as pd
 from pydub import AudioSegment, silence
+import librosa
 
 # Dossier d'entrée et de sorties
 input_directory = '.\\dataset\\raw\\4voices-funspeech\\'
@@ -54,9 +55,16 @@ for file in wav_files:
     audio_clipped.export(output_filename, format="wav")
 
     # Informations nécessaires
-    length = len(audio_clipped)
-    dataframe.append((sound_id, category, f"{user_name}-{info}", length))
-    print(sound_id, category, f"{user_name}-{info}", length)
+    sig, _ = librosa.load(output_filename, sr=16000)
+    length = len(audio_clipped.get_array_of_samples())
+    milliseconds = len(audio_clipped)
 
-df = pd.DataFrame.from_records(dataframe, columns=['sound_id', 'category', 'base_file', 'length'])
+    if not sig.size == length:
+        print(f"{file} doit être vérifié manuellement")
+        continue
+
+    dataframe.append((sound_id, category, f"{user_name}-{info}", length, milliseconds))
+    print(sound_id, category, f"{user_name}-{info}", length, milliseconds)
+
+df = pd.DataFrame.from_records(dataframe, columns=['sound_id', 'category', 'base_file', 'length', 'milliseconds'])
 df.to_csv(f"{output_directory}funspeech.csv", sep=",", index=False)

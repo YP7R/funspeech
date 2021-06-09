@@ -1,17 +1,21 @@
 import librosa
 import numpy as np
+import features.python_speech_features as psf
+
 filepath = "./../dataset/processed/funspeech/user1-093623a.wav"
 
 sample_rate = 16000
-sec_sample = 0.1 # Secondes
+sec_sample = 100  # millisecondes
 length = 1348
 
 signal, sr = librosa.load(filepath, sr=sample_rate)
 
-stop = int(len(signal)-np.floor(sample_rate*sec_sample))
-rand_index = np.random.randint(0, stop)
+sample_size = psf.improved.ms2signal_size(sec_sample, sample_rate)
 
-sample = signal[rand_index:int(rand_index+sample_rate*sec_sample)]
-# Si on prend la dernipre partie du signal, on est bon
-s2 = signal[stop:]
-print(sample.size,s2.size)
+stop = len(signal) - sample_size
+rand_index = np.random.randint(0, stop)
+sample = signal[rand_index:rand_index + sample_size]
+
+# Si on prend la dernière partie du signal , on est bon
+limit = signal[stop:]
+print(limit.size, sample.size)

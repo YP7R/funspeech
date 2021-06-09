@@ -3,6 +3,7 @@ import shutil
 import glob
 import pandas as pd
 from pydub import AudioSegment
+import librosa
 
 # Dossier d'entrée et de sorties
 input_directory = '.\\dataset\\raw\\sound-timedata\\'
@@ -39,10 +40,18 @@ for index, row in df.iterrows():
 
     # Informations nécessaires
     sound_id = row['File'][-2:]
-    length = len(audio_clipped)
-    base_file = row['File'][:-2]
-    dataframe.append((sound_id, category, base_file, length))
-    print(sound_id, category, base_file, length)
 
-df = pd.DataFrame.from_records(dataframe, columns=['sound_id', 'category', 'base_file', 'length'])
+    sig, _ = librosa.load(output_filename, sr=16000)
+    length = len(audio_clipped.get_array_of_samples())
+    milliseconds = len(audio_clipped)
+
+    if not sig.size == length:
+        print(f"{filename} doit être vérifié manuellement")
+        continue
+
+    base_file = row['File'][:-2]
+    dataframe.append((sound_id, category, base_file, length, milliseconds))
+    print(sound_id, category, base_file, length, milliseconds)
+
+df = pd.DataFrame.from_records(dataframe, columns=['sound_id', 'category', 'base_file', 'length', 'milliseconds'])
 df.to_csv(f"{output_directory}wmusounds.csv", sep=",", index=False)
