@@ -20,7 +20,7 @@ if not os.path.exists(input_directory):
 csv_files = glob.glob(input_directory + "**/*.csv", recursive=True)
 print(csv_files)
 
-for csv_file in csv_files[0:1]:
+for csv_file in csv_files:
 
     # Crée le repertoire qui va contenir les features
     base_file, ext = os.path.splitext(os.path.basename(csv_file))
@@ -31,7 +31,6 @@ for csv_file in csv_files[0:1]:
     # Lecture du csv
     dataframe = pd.read_csv(csv_file)
     minimum_length = dataframe['length'].min()
-    print(dataframe.columns)
 
     # Path of the sounds
     sounds_path = f"{input_directory}{base_file}"

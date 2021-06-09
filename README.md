@@ -16,6 +16,9 @@ En cas de ..., vérifier les fichiers à la main
 * banc de filtres
 * Mel-Frequency Cepstral Coefficients
 
+## 3. Classification...
+* Todo ...
+
 
 
 
