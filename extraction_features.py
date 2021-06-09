@@ -38,7 +38,7 @@ for csv_file in csv_files:
     # Lecture du csv
     dataframe = pd.read_csv(csv_file)
 
-    # Full audio
+    # Full audio, récupere le fichier le plus court et il définit notre nombre de fenêtres
     minimum_ms = dataframe['milliseconds'].min()
     minimum_sig_size = psf.improved.ms2signal_size(minimum_ms, sample_rate)
     nb_frames = psf.improved.get_number_of_frames(minimum_sig_size, sample_rate)
@@ -47,8 +47,9 @@ for csv_file in csv_files:
     minimum_sig_size_sample = psf.improved.ms2signal_size(sec_sample, sample_rate)
     nb_frames_sample = psf.improved.get_number_of_frames(minimum_sig_size_sample, sample_rate)
 
-    print(nb_frames)
-    print(dataframe[dataframe['milliseconds'] == dataframe['milliseconds'].min()])
+    print(f"Nombre de fenêtres : {nb_frames}")
+    # print(dataframe[dataframe['milliseconds'] == dataframe['milliseconds'].min()])
+    # print(dataframe[dataframe['milliseconds'] == dataframe['milliseconds'].max()])
 
     # Path of the sounds
     sounds_path = f"{input_directory}{base_file}"
@@ -78,14 +79,13 @@ for csv_file in csv_files:
         features_energies_sample.append(energies_sample)
 
         # mfcc
-        mfcc = psf.mfcc(signal, sample_rate, **parameters_mfcc)
+        mfcc = psf.improved.reduce_mfcc_features(psf.mfcc(signal, sample_rate, **parameters_mfcc), nb_frames, filename)
         mfcc_sample = psf.mfcc(signal_sample, sample_rate, **parameters_mfcc)
         features_mfcc.append(mfcc)
         features_mfcc_sample.append(mfcc_sample)
 
-
     np.save(f"{output_path}features_energies.npy", energies)
     np.save(f"{output_path}features_energies_sample.npy", energies_sample)
 
-    # np.save(f"{output_path}features_mfcc.npy",features_mfcc)
-    np.save(f"{output_path}features_mfcc_sample.npy",features_mfcc_sample)
+    np.save(f"{output_path}features_mfcc.npy",features_mfcc)
+    np.save(f"{output_path}features_mfcc_sample.npy", features_mfcc_sample)

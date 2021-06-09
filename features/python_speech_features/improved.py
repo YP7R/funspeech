@@ -22,6 +22,20 @@ def get_number_of_frames(length_signal, sample_rate, win_len=0.025, win_step=0.0
         nb_frames = 1 + int(np.ceil((1.0 * length_signal - frame_len) / frame_step))
     return nb_frames
 
-def reduce_mfcc_features(mfccs, nb_frames):
-    # TODO ...
-    pass
+def reduce_mfcc_features(mfcc, nb_frames, file=""):
+    nb_vector = mfcc.shape[0]
+    mfcc_reduced = []
+    for i in range(nb_frames):
+        start = i/nb_frames * nb_vector
+        end = (i+1)/nb_frames * nb_vector
+        i_start, i_end = int(start), int(end)
+        if i_start == i_end:
+            print(f"{file}")
+            input("")
+            exit()
+        mfcc_subset = mfcc[i_start:i_end]
+        # print(mfcc_subset.shape)
+        mfcc_mean = np.mean(mfcc_subset, axis=0)
+        mfcc_reduced.append(mfcc_mean)
+
+    return np.array(mfcc_reduced)
