@@ -45,4 +45,4 @@ for index, row in df.iterrows():
     print(sound_id, category, base_file, length)
 
 df = pd.DataFrame.from_records(dataframe, columns=['sound_id', 'category', 'base_file', 'length'])
-df.to_csv(f"{output_directory}_wmusounds.csv", sep=",", index=False)
+df.to_csv(f"{output_directory}wmusounds.csv", sep=",", index=False)

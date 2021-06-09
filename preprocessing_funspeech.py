@@ -20,7 +20,7 @@ wav_files = glob.glob(input_directory + '**/*.wav', recursive=True)
 if not wav_files:
     exit(0)
 
-category = "m"
+category = "men"
 dataframe = []
 for file in wav_files:
     # Nom du son
@@ -31,7 +31,7 @@ for file in wav_files:
     user_name, info = base_file.split("_")
 
     # Fichier final
-    new_filename = f"{category}{user_name}-{info}{sound_id}{ext}"
+    new_filename = f"{user_name}-{info}{sound_id}{ext}"
     output_filename = f"{output_directory}{new_filename}"
     audio = AudioSegment.from_file(file, format='wav', frame_rate=16000)
 
@@ -55,8 +55,8 @@ for file in wav_files:
 
     # Informations nécessaires
     length = len(audio_clipped)
-    dataframe.append((sound_id, category, base_file, length))
-    print(sound_id, category, base_file, length)
+    dataframe.append((sound_id, category, f"{user_name}-{info}", length))
+    print(sound_id, category, f"{user_name}-{info}", length)
 
 df = pd.DataFrame.from_records(dataframe, columns=['sound_id', 'category', 'base_file', 'length'])
-df.to_csv(f"{output_directory}_funspeech.csv", sep=",", index=False)
+df.to_csv(f"{output_directory}funspeech.csv", sep=",", index=False)
