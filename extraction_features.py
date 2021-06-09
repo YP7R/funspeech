@@ -130,8 +130,8 @@ for csv_file in csv_files:
         features_erbfcc_sample.append(erbfcc_sample)
 
     # Sauvegarde des features
-    np.save(f"{output_path}features_energies.npy", energies)
-    np.save(f"{output_path}features_energies_sample.npy", energies_sample)
+    np.save(f"{output_path}features_energies.npy", features_energies)
+    np.save(f"{output_path}features_energies_sample.npy", features_energies_sample)
 
     np.save(f"{output_path}features_logfbank.npy", features_logfbank)
     np.save(f"{output_path}features_logfbank_sample.npy", features_logfbank_sample)

@@ -105,6 +105,6 @@ def energies_algorithm(signal, sample_rate, bands=np.array([150, 551, 1051, 1901
 
     # Compute features ...
     energies = _compute_energy_per_bands(freq, fft_normalized_values, bands)
+    energies =  np.expand_dims(energies, axis=0)
     return energies
-
 
