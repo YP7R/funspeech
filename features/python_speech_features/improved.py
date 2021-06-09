@@ -88,10 +88,11 @@ def new_fbank(signal, samplerate=16000, winlen=0.025, winstep=0.01,
 
     return feat, energy
 
+
 # Can use this feature
 def new_logfbank(signal, samplerate=16000, winlen=0.025, winstep=0.01,
-             nfilt=26, nfft=512, lowfreq=0, highfreq=None, preemph=0.97,
-             winfunc=lambda x: np.ones((x,)), fbank_name="mel"):
+                 nfilt=26, nfft=512, lowfreq=0, highfreq=None, preemph=0.97,
+                 winfunc=lambda x: np.ones((x,)), fbank_name="mel"):
     """Compute log Mel-filterbank energy features from an audio signal."""
 
     feat, energy = new_fbank(signal, samplerate, winlen, winstep, nfilt, nfft, lowfreq, highfreq, preemph, winfunc,

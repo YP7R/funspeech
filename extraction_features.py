@@ -58,8 +58,25 @@ for csv_file in csv_files:
     features_energies_sample = []
     features_energies = []
 
+    # logfbank
+    features_logfbank_sample = []
+    features_logfbank = []
+
+    # mfcc
     features_mfcc_sample = []
     features_mfcc = []
+
+    # mwfcc
+    features_mwfcc_sample = []
+    features_mwfcc = []
+
+    # lfcc
+    features_lfcc_sample = []
+    features_lfcc = []
+
+    # erbfcc
+    features_erbfcc_sample = []
+    features_erbfcc = []
 
     for index, row in dataframe.iterrows():
         filename = f"{row['base_file']}{row['sound_id']}.wav"
@@ -78,14 +95,55 @@ for csv_file in csv_files:
         features_energies.append(energies)
         features_energies_sample.append(energies_sample)
 
+        # logfbank
+        logfbank = psf.improved.reduce_mfcc_features(
+            psf.improved.new_logfbank(signal, sample_rate, fbank_name="ern"), nb_frames, filename)
+        logfbank_sample = psf.improved.new_logfbank(signal, sample_rate, fbank_name="erb")
+        features_logfbank.append(logfbank)
+        features_logfbank_sample.append(logfbank_sample)
+
         # mfcc
         mfcc = psf.improved.reduce_mfcc_features(psf.mfcc(signal, sample_rate, **parameters_mfcc), nb_frames, filename)
         mfcc_sample = psf.mfcc(signal_sample, sample_rate, **parameters_mfcc)
         features_mfcc.append(mfcc)
         features_mfcc_sample.append(mfcc_sample)
 
+        # mwfcc
+        mwfcc = psf.improved.reduce_mfcc_features(
+            psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="mel_weight"), nb_frames, filename)
+        mwfcc_sample = psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="mel_weight")
+        features_mwfcc.append(mwfcc)
+        features_mwfcc_sample.append(mwfcc_sample)
+
+        # lfcc
+        lfcc = psf.improved.reduce_mfcc_features(
+            psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="linear"), nb_frames, filename)
+        lfcc_sample = psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="linear")
+        features_lfcc.append(lfcc)
+        features_lfcc_sample.append(lfcc_sample)
+
+        # erbfcc
+        erbfcc = psf.improved.reduce_mfcc_features(
+            psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="erb"), nb_frames, filename)
+        erbfcc_sample = psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="erb")
+        features_erbfcc.append(erbfcc)
+        features_erbfcc_sample.append(erbfcc_sample)
+
+    # Sauvegarde des features
     np.save(f"{output_path}features_energies.npy", energies)
     np.save(f"{output_path}features_energies_sample.npy", energies_sample)
 
-    np.save(f"{output_path}features_mfcc.npy",features_mfcc)
+    np.save(f"{output_path}features_logfbank.npy", features_logfbank)
+    np.save(f"{output_path}features_logfbank_sample.npy", features_logfbank_sample)
+
+    np.save(f"{output_path}features_mfcc.npy", features_mfcc)
     np.save(f"{output_path}features_mfcc_sample.npy", features_mfcc_sample)
+
+    np.save(f"{output_path}features_mwfcc.npy", features_mwfcc)
+    np.save(f"{output_path}features_mwfcc_sample.npy", features_mwfcc_sample)
+
+    np.save(f"{output_path}features_lfcc.npy", features_lfcc)
+    np.save(f"{output_path}features_lfcc_sample.npy", features_lfcc_sample)
+
+    np.save(f"{output_path}features_erbfcc.npy", features_erbfcc)
+    np.save(f"{output_path}features_erbfcc_sample.npy", features_erbfcc_sample)
