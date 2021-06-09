@@ -97,7 +97,7 @@ for csv_file in csv_files:
 
         # logfbank
         logfbank = psf.improved.reduce_mfcc_features(
-            psf.improved.new_logfbank(signal, sample_rate, fbank_name="ern"), nb_frames, filename)
+            psf.improved.new_logfbank(signal, sample_rate, fbank_name="erb"), nb_frames, filename)
         logfbank_sample = psf.improved.new_logfbank(signal, sample_rate, fbank_name="erb")
         features_logfbank.append(logfbank)
         features_logfbank_sample.append(logfbank_sample)
