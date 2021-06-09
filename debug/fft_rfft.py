@@ -7,14 +7,16 @@ filepath = "./../dataset/processed/funspeech/muser1-093623a.wav"
 
 signal, sr = librosa.load(filepath, sr=16000)
 signal = bp.pad_signal(signal)
+signal = bp.normalize_volume(signal)
 bp.compute_fft(signal)
 bp.compute_rfft(signal)
 
 print("*" * 100)
-sig = [0, 1, 2, 0, 1, 1, 1, 1]
+sig = np.array([0, 1, 2, 0, 1, 1, 1, 1])
 
-# sig = signal
+sig =signal
 
+'''
 f = np.fft.fft(sig)
 r = np.fft.rfft(sig)
 #######################################################################
@@ -44,3 +46,5 @@ print("RFFT FREQ")
 print(rf[0], rf[-1], f"Size: {rf.size}")
 print(' | '.join(map(str, rf)))
 print(' | '.join(map(str, bp.compute_rfftfreq(sig, 16000))))
+'''
+bp.algorithm(sig, 16000)
