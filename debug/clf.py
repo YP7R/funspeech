@@ -5,6 +5,7 @@ from sklearn.model_selection import learning_curve
 from sklearn.svm import SVC
 from features.barycentre import BaryCentre
 import matplotlib.pyplot as plt
+
 random = np.random.RandomState(0)
 
 df = pd.read_csv("..\\dataset\\processed\\wmusounds\\wmusounds.csv")
@@ -22,7 +23,8 @@ label_encoder = LabelEncoder()
 sounds_expected = label_encoder.fit_transform(sounds_expected)
 
 estimator = SVC()
-
+'''
+# Learning curve
 train_sizes, train_scores, test_scores, fit_times, score_times = learning_curve(estimator=estimator, X=features,
                                                                                 y=sounds_expected,
                                                                                 train_sizes=np.linspace(0.1, 1, 10),
@@ -92,4 +94,4 @@ axes[3].set_xlabel("Training examples")
 axes[3].set_ylabel("score_times")
 axes[3].set_title("Scalability of the model")
 plt.show()
-
+'''
