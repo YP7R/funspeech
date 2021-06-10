@@ -22,6 +22,10 @@ En cas de ..., vérifier les fichiers à la main
 * ERBFCC
 
 ## 3. Classification...
+[file](./main.py)
+* KNN
+* SVM
+* Votting classifier
 * Todo ...
 
 
