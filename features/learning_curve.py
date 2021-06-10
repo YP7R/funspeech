@@ -27,7 +27,7 @@ def new_learning_curve(clf, x, y, x_test, y_test, train_size=np.linspace(0.1, 1.
 
     # Results
     results = {
-        'train_sizes': np.trunc(train_size[:-1] * y.size)
+        'train_sizes': np.trunc(train_size[:-1] * y.size),
         'fit_time': [],
         'score_time': [],
     }
@@ -39,15 +39,11 @@ def new_learning_curve(clf, x, y, x_test, y_test, train_size=np.linspace(0.1, 1.
 
     # Compute
     for tr, te in zip(train_size[:-1], test_size[:-1]):
-        print("*" * 100)
+
         classifier = clone(clf)
-
-        stratified_shuffle_split = StratifiedShuffleSplit(random_state=0, train_size=tr, test_size=te, n_splits=n_split)
-        # sss = StratifiedShuffleSplit(random_state=0, train_size=tr, test_size=te, n_splits=10)
-        # part_1, part_2 = next(sss.split(x, y))
-        # this is used by default # skf = StratifiedKFold(10,shuffle=True, random_state=0) # default
-
         # (Train/Test) Cross-validation
+        stratified_shuffle_split = StratifiedShuffleSplit(random_state=0, train_size=tr, test_size=te, n_splits=n_split)
+        # skf = StratifiedKFold(10,shuffle=True, random_state=0) # use by default
         cross_validation = cross_validate(classifier, x, y, cv=stratified_shuffle_split,
                                           scoring=scoring, n_jobs=-1,
                                           return_train_score=True, return_estimator=True)

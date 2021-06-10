@@ -1,9 +1,9 @@
 import features.learning_curve as lc
+import features.plot as pl
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from sklearn.svm import SVC
-
 from features.barycentre import BaryCentre
 
 random = np.random.RandomState(0)
@@ -35,6 +35,8 @@ sounds_adult = sounds_expected[df_adult.index.values]
 
 svc = SVC(probability=True)
 
-x = lc.new_learning_curve(BaryCentre(), features_adult, sounds_adult, features_child, sounds_child,scoring=['accuracy'])
+x = lc.new_learning_curve(svc, features_adult, sounds_adult, features_child, sounds_child,
+                          scoring=['accuracy', 'neg_log_loss'])
 
 print(x)
+pl.plot_curves(x, "ok", "ok", "ok", "ok", scoring=['accuracy', 'neg_log_loss'])
