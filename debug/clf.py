@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import sklearn
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from sklearn.model_selection import learning_curve
 from sklearn.svm import SVC
@@ -23,7 +24,7 @@ label_encoder = LabelEncoder()
 sounds_expected = label_encoder.fit_transform(sounds_expected)
 
 estimator = SVC()
-'''
+
 # Learning curve
 train_sizes, train_scores, test_scores, fit_times, score_times = learning_curve(estimator=estimator, X=features,
                                                                                 y=sounds_expected,
@@ -49,7 +50,7 @@ fit_times_std = np.std(fit_times, axis=1)
 score_times_mean = np.mean(score_times, axis=1)
 score_times_std = np.std(score_times, axis=1)
 
-figure , axes = plt.subplots(1, 4, figsize=(22, 5))
+figure, axes = plt.subplots(1, 4, figsize=(22, 5))
 figure.suptitle("Courbes d'apprentissage")
 
 axes[0].set_title("Learning curve")
@@ -70,21 +71,20 @@ axes[0].plot(train_sizes, test_scores_mean, 'o-', color="g",
 axes[0].legend(loc="best")
 
 axes[1].grid()
-axes[1].plot(train_sizes, fit_times_mean, 'o-')
-axes[1].fill_between(train_sizes, fit_times_mean - fit_times_std,
-                     fit_times_mean + fit_times_std, alpha=0.1)
-axes[1].set_xlabel("Training examples")
-axes[1].set_ylabel("fit_times")
-axes[1].set_title("Scalability of the model")
+axes[1].plot(fit_times_mean, test_scores_mean, 'o-')
+axes[1].fill_between(fit_times_mean, test_scores_mean - test_scores_std,
+                     test_scores_mean + test_scores_std, alpha=0.1)
+axes[1].set_xlabel("fit_times")
+axes[1].set_ylabel("Score")
+axes[1].set_title("Performance of the model")
 
 axes[2].grid()
-axes[2].plot(fit_times_mean, test_scores_mean, 'o-')
-axes[2].fill_between(fit_times_mean, test_scores_mean - test_scores_std,
-                     test_scores_mean + test_scores_std, alpha=0.1)
-axes[2].set_xlabel("fit_times")
-axes[2].set_ylabel("Score")
-axes[2].set_title("Performance of the model")
-
+axes[2].plot(train_sizes, fit_times_mean, 'o-')
+axes[2].fill_between(train_sizes, fit_times_mean - fit_times_std,
+                     fit_times_mean + fit_times_std, alpha=0.1)
+axes[2].set_xlabel("Training examples")
+axes[2].set_ylabel("fit_times")
+axes[2].set_title("Scalability of the model (Training)")
 
 axes[3].grid()
 axes[3].plot(train_sizes, score_times_mean, 'o-')
@@ -92,6 +92,5 @@ axes[3].fill_between(train_sizes, score_times_mean - score_times_std,
                      score_times_mean + score_times_std, alpha=0.1)
 axes[3].set_xlabel("Training examples")
 axes[3].set_ylabel("score_times")
-axes[3].set_title("Scalability of the model")
+axes[3].set_title("Scalability of the model (Testing)")
 plt.show()
-'''
