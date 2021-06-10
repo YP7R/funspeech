@@ -34,11 +34,12 @@ def new_learning_curve(clf, x, y, x_test, y_test, train_size=np.linspace(0.1, 1.
         print(cross_validation.items())
         estimators = cross_validation['estimator']
         for estimator in estimators:
-            y_pred = estimator.predict(x_test)
-            y_pred_proba = estimator.predict_proba(x_test)
-            score_accuracy = accuracy_score(y_test, y_pred)
-            score_log_loss = log_loss(y_test, y_pred_proba)
+            y_prediction = estimator.predict(x_test)
+            y_prediction_probability = estimator.predict_proba(x_test)
+            score_accuracy = accuracy_score(y_test, y_prediction)
+            score_log_loss = log_loss(y_test, y_prediction_probability)
             print(score_accuracy, score_log_loss)
+
         '''
         for c in cross_validation.items():
             print(c)
