@@ -98,7 +98,7 @@ for csv_file in csv_files:
         # logfbank
         logfbank = psf.improved.reduce_mfcc_features(
             psf.improved.new_logfbank(signal, sample_rate, fbank_name="erb"), nb_frames, filename)
-        logfbank_sample = psf.improved.new_logfbank(signal, sample_rate, fbank_name="erb")
+        logfbank_sample = psf.improved.new_logfbank(signal_sample, sample_rate, fbank_name="erb")
         features_logfbank.append(logfbank)
         features_logfbank_sample.append(logfbank_sample)
 
@@ -111,21 +111,21 @@ for csv_file in csv_files:
         # mwfcc
         mwfcc = psf.improved.reduce_mfcc_features(
             psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="mel_weight"), nb_frames, filename)
-        mwfcc_sample = psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="mel_weight")
+        mwfcc_sample = psf.improved.new_mfcc(signal_sample, sample_rate, **parameters_mfcc, fbank_name="mel_weight")
         features_mwfcc.append(mwfcc)
         features_mwfcc_sample.append(mwfcc_sample)
 
         # lfcc
         lfcc = psf.improved.reduce_mfcc_features(
             psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="linear"), nb_frames, filename)
-        lfcc_sample = psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="linear")
+        lfcc_sample = psf.improved.new_mfcc(signal_sample, sample_rate, **parameters_mfcc, fbank_name="linear")
         features_lfcc.append(lfcc)
         features_lfcc_sample.append(lfcc_sample)
 
         # erbfcc
         erbfcc = psf.improved.reduce_mfcc_features(
             psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="erb"), nb_frames, filename)
-        erbfcc_sample = psf.improved.new_mfcc(signal, sample_rate, **parameters_mfcc, fbank_name="erb")
+        erbfcc_sample = psf.improved.new_mfcc(signal_sample, sample_rate, **parameters_mfcc, fbank_name="erb")
         features_erbfcc.append(erbfcc)
         features_erbfcc_sample.append(erbfcc_sample)
 
