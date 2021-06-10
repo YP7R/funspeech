@@ -39,4 +39,4 @@ x = lc.new_learning_curve(svc, features_adult, sounds_adult, features_child, sou
                           scoring=['accuracy', 'neg_log_loss'])
 
 print(x)
-pl.plot_curves(x, "ok", "ok", "ok", "ok", scoring=['accuracy', 'neg_log_loss'])
+pl.plot_curves(x, scoring=['accuracy', 'neg_log_loss'],features_name="ok",classifier_name="ok",dataset_name="ok",save_path= "./ok.png")

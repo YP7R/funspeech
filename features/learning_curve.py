@@ -66,7 +66,8 @@ def new_learning_curve(clf, x, y, x_test, y_test, train_size=np.linspace(0.1, 1.
 
             for score in scoring:
                 if score == 'neg_log_loss':
-                    score_metric = get_scorer(score)._score_func(y_test, y_prediction_probability)
+                    # multiply by -1.0 because neg_log_loss return positive
+                    score_metric = -1.0 * get_scorer(score)._score_func(y_test, y_prediction_probability)
                 else:
                     score_metric = get_scorer(score)._score_func(y_test, y_prediction)
                 validations[score].append(score_metric)

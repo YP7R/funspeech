@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_curves(results, features_name, classifier_name, dataset_name, save_path, scoring):
+def plot_curves(results, scoring, features_name, classifier_name, dataset_name, save_path):
     scoring_results = {}
     for score in scoring:
         scoring_results[f"train_{score}_mean"] = np.mean(results[f"train_{score}"], axis=1)
@@ -21,7 +21,7 @@ def plot_curves(results, features_name, classifier_name, dataset_name, save_path
     score_time_std = np.std(results['score_time'], axis=1)
 
     figure, axes = plt.subplots(1, 1 + len(scoring), figsize=(20, 5))
-    figure.suptitle("classifier name, features name, dataset")
+    figure.suptitle(f"dataset: {dataset_name}, classifier: {classifier_name}, features: {features_name}")
 
     for index, score in enumerate(scoring):
         axes[index].set_title(score)
@@ -62,5 +62,5 @@ def plot_curves(results, features_name, classifier_name, dataset_name, save_path
     axes[len(scoring)].set_ylabel("Time [s]")
     axes[len(scoring)].set_title("Scalability of the model (Fittitng / Testing)")
     axes[len(scoring)].legend(loc="best")
-
+    plt.savefig(save_path)
     plt.show()
