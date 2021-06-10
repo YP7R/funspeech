@@ -23,6 +23,7 @@ En cas de ..., vérifier les fichiers à la main
 
 ## 3. Classification...
 [file](./main.py)
+* Barycentre
 * KNN
 * SVM
 * Votting classifier
