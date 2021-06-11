@@ -17,7 +17,7 @@ output_directory = "..\\dataset\\confusion_matrix\\"
 
 #shutil.rmtree(output_directory, ignore_errors=True)
 #os.makedirs(output_directory)
-features_name = "features_logfbank"
+features_name = "features_erbfcc"
 
 for csv_file in csv_files:
     dataframe = pd.read_csv(csv_file)
@@ -48,8 +48,8 @@ for csv_file in csv_files:
     sounds_adult = sounds_expected[df_adult.index.values]
 
     bc = BaryCentre()
-    SVC(probability=True, random_state=0, kernel='linear', gamma='scale')
-    predictions = cross_val_predict(bc, features, sounds_expected, cv=5)
+    svm = SVC(probability=True, random_state=0, kernel='linear', gamma='scale')
+    predictions = cross_val_predict(svm, features, sounds_expected, cv=5)
     cm = confusion_matrix(sounds_expected, predictions)
     disp = ConfusionMatrixDisplay(cm, display_labels=label_encoder.classes_)
     ax = disp.plot(cmap=plt.cm.Blues)
