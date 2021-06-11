@@ -100,7 +100,8 @@ dataset\voting_clf\[{dataset_name}_{features_name}_voting_classifier.png]
 
 ## 4. Youhou !!
 * It's done
-
+* next ... confusion matrix for each feature and classifier
+* next ... voting classifier for each feature 
 
 
 
