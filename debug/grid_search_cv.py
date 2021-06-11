@@ -1,14 +1,22 @@
-import features.learning_curve as lc
-import features.plot as pl
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
-from features.barycentre import BaryCentre
+from sklearn.neighbors import KNeighborsClassifier
 
 random = np.random.RandomState(0)
+
+classifiers = [{'clf_name': 'KNN', 'clf': KNeighborsClassifier(),
+                'param_grid': [
+                    {'weights': ['distance'],
+                     'n_neighbors': np.arange(5, 18, 4)}
+                ]},
+               {'clf_name': 'SVM', 'clf': SVC(probability=True, random_state=0,kernel='linear',gamma='scale'),
+                'param_grid': [
+                    {'C': np.arange(0.94, 1.01, 0.01)}
+                ]}
+               ]
 
 df = pd.read_csv("..\\dataset\\processed\\wmusounds\\wmusounds.csv")
 data_path = "..\\dataset\\features\\wmusounds\\features_erbfcc.npy"
@@ -27,18 +35,12 @@ sounds_expected = label_encoder.fit_transform(sounds_expected)
 df_adult = df.loc[df['category'].isin(["men", "women"])]
 df_child = df.drop(df_adult.index)
 
-# df_child = df.loc[df['base_file'].str.startswith('user4')]
-# df_adult = df.drop(df_child.index)
-
 features_child = features[df_child.index.values]
 features_adult = features[df_adult.index.values]
 sounds_child = sounds_expected[df_child.index.values]
 sounds_adult = sounds_expected[df_adult.index.values]
 
-svc = SVC(probability=True)
-
-x = lc.new_learning_curve(svc, features_adult, sounds_adult, features_child, sounds_child,
-                          scoring=['accuracy', 'neg_log_loss'])
-
-print(x)
-pl.plot_curves(x, scoring=['accuracy', 'neg_log_loss'],features_name="ok",classifier_name="ok",dataset_name="ok",save_path= "./ok.png")
+grid = GridSearchCV(classifiers[1]['clf'], classifiers[1]['param_grid'], cv=10, n_jobs=-1)
+grid.fit(features_adult, sounds_adult)
+print(grid.best_params_)
+print(grid.best_score_)

@@ -24,7 +24,6 @@ label_encoder = LabelEncoder()
 sounds_expected = label_encoder.fit_transform(sounds_expected)
 
 estimator = SVC()
-
 # Learning curve
 train_sizes, train_scores, test_scores, fit_times, score_times = learning_curve(estimator=estimator, X=features,
                                                                                 y=sounds_expected,
@@ -50,7 +49,7 @@ fit_times_std = np.std(fit_times, axis=1)
 score_times_mean = np.mean(score_times, axis=1)
 score_times_std = np.std(score_times, axis=1)
 
-figure, axes = plt.subplots(1, 4, figsize=(22, 5))
+figure, axes = plt.subplots(1, 4, figsize=(20, 5))
 figure.suptitle("Courbes d'apprentissage")
 
 axes[0].set_title("Learning curve")

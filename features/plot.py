@@ -12,8 +12,6 @@ def plot_curves(results, scoring, features_name, classifier_name, dataset_name, 
         scoring_results[f"validation_{score}_mean"] = np.mean(results[f"validation_{score}"], axis=1)
         scoring_results[f"validation_{score}_std"] = np.std(results[f"validation_{score}"], axis=1)
 
-    print(scoring_results)
-
     train_sizes = results['train_sizes']
     fit_time_mean = np.mean(results['fit_time'], axis=1)
     fit_time_std = np.std(results['fit_time'], axis=1)
@@ -63,4 +61,4 @@ def plot_curves(results, scoring, features_name, classifier_name, dataset_name, 
     axes[len(scoring)].set_title("Scalability of the model (Fittitng / Testing)")
     axes[len(scoring)].legend(loc="best")
     plt.savefig(save_path)
-    plt.show()
+    # plt.show()
