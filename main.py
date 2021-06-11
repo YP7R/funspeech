@@ -38,12 +38,8 @@ classifiers = [{'clf_name': 'Barycentre', 'clf': BaryCentre(),
                 'param_grid': [{'n_neighbors': np.arange(9, 18, 4)}],
                 'scoring': ['accuracy', 'neg_log_loss']
                 },
-               {'clf_name': 'Bagging_SVM',
-                'clf': BaggingClassifier(SVC(probability=True, random_state=0, kernel='linear', gamma='scale')),
-                'param_grid': [],
-                'scoring': ['accuracy', 'neg_log_loss']},
                {'clf_name': 'Bagging_KNN',
-                'clf': BaggingClassifier(KNeighborsClassifier(weights='distance', n_neighbors=13)),
+                'clf': BaggingClassifier(base_estimator=KNeighborsClassifier(weights='distance', n_neighbors=13)),
                 'param_grid': [],
                 'scoring': ['accuracy', 'neg_log_loss']}]
 
@@ -88,7 +84,7 @@ for csv_file in csv_files:
         sounds_adult = sounds_expected[df_adult.index.values]
 
         # Pour les classifieurs
-        for classifier in classifiers[0:3]:
+        for classifier in classifiers:
             clf = clone(classifier['clf'])
             clf_name = classifier['clf_name']
 

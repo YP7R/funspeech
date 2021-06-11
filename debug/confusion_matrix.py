@@ -1,11 +1,16 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import glob
 from sklearn.metrics import confusion_matrix, plot_confusion_matrix, ConfusionMatrixDisplay
 from sklearn.model_selection import cross_val_predict
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from features.barycentre import BaryCentre
 
+csv_files = glob.glob("..\\dataset\\processed\\"+"**/*.csv")
+for csv_file in csv_files:
+    print(csv_file)
+'''
 df = pd.read_csv("..\\dataset\\processed\\wmusounds\\wmusounds.csv")
 data_path_1 = "..\\dataset\\features\\wmusounds\\features_energies.npy"
 data_path_2 = "..\\dataset\\features\\wmusounds\\features_mfcc.npy"
@@ -51,3 +56,4 @@ ax = disp.plot(cmap=plt.cm.Blues)
 ax.ax_.set_title("Confusion Matrix")
 #plt.savefig("./ok.png")
 plt.show()
+'''

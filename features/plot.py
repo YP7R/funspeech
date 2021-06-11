@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -61,4 +63,5 @@ def plot_curves(results, scoring, features_name, classifier_name, dataset_name, 
     axes[len(scoring)].set_title("Scalability of the model (Fittitng / Testing)")
     axes[len(scoring)].legend(loc="best")
     plt.savefig(save_path)
+    plt.close(figure)
     # plt.show()
