@@ -27,18 +27,14 @@ dataset\processed\{dataset_name}\[{dataset_name}.csv, sounds_processed.wav]
 
 ```
 ---
-In case of [`RunTimeWarning: Couldn't find ffmpeg or avconv`](http://blog.gregzaal.com/how-to-install-ffmpeg-on-windows/)
-In case of error message when processing, check files. 
+In case of [`RunTimeWarning: Couldn't find ffmpeg or avconv`](http://blog.gregzaal.com/how-to-install-ffmpeg-on-windows/)  
+In case of error message when processing, check files.  
 
 ## 2. Extract acoustic features on signal and a sample of signal
 [extraction features](./extraction_features.py)
+* generate numpy array files for features
 * Sample of a signal / Signal
-* Energies
-* Log Filterbank
-* Mel-Frequency Cepstral Coefficients (MFCC)
-* MelWeighted-FCC
-* Linear-FCC
-* ERB-FCC
+* Energies, Log Filterbank, M-FCC, MelWeighted-FCC, Linear-FCC & ERB-FCC
 
 ```
 dataset\features\{dataset_name}\[{features_name}.npy, {features_name}_sample.npy]
@@ -51,6 +47,7 @@ dataset\features\{dataset_name}\[{features_name}.npy, {features_name}_sample.npy
 ```
 
 ## 3. Classification ... train, test & validation sets
+Classify datas and generate .png files
 * BaryCentre
 * KNN
 * SVM
