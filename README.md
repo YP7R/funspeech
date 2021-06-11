@@ -3,7 +3,7 @@
 ## 0. Collect dataset : Western Michigan University or FunSpeech
 * https://homepages.wmich.edu/~hillenbr/voweldata.html
 ## 1. Preprocessing
-[file](./preprocessing_funspeech.py), [file](./preprocessing_wmusounds.py)
+[funspeech processing](./preprocessing_funspeech.py), [wmu processing](./preprocessing_wmusounds.py)
 * coupe les silences
 * extrait les phonèmes
 * génère des fichiers de référence `sound_id, category, base_file(username), length` 
@@ -12,7 +12,7 @@ En cas de [`RunTimeWarning: Couldn't find ffmpeg or avconv`](http://blog.gregzaa
 En cas de ..., vérifier les fichiers à la main
 
 ## 2. Extraction des caractéristiques acoustiques
-[file](./extraction_features.py)
+[extraction features](./extraction_features.py)
 * (Sample FunSpeech / wmu)
 * Bande de bases
 * log banc de filtres
@@ -22,12 +22,14 @@ En cas de ..., vérifier les fichiers à la main
 * ERBFCC
 
 ## 3. Classification...
-[file](./main.py)
+[main](./main.py), [confusion matrix](./debug/confusion_matrix.py), [votting classifier](./debug/votting_clf.py)
 * Barycentre
 * KNN
 * SVM
 * Votting classifier
-* Todo ...
+
+## 4. Youhou !!
+* It's done
 
 
 
