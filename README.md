@@ -16,16 +16,17 @@ En cas de ..., vérifier les fichiers à la main
 * (Sample FunSpeech / wmu)
 * Bande de bases
 * log banc de filtres
-* Mel-Frequency Cepstral Coefficients
+* Mel-Frequency Cepstral Coefficients (MFCC)
 * MW-FCC
 * LFCC
 * ERBFCC
 
-## 3. Classification...
-[main](./main.py), [confusion matrix](./debug/confusion_matrix.py), [votting classifier](./debug/votting_clf.py)
+## 3. Classification ... train, test & validation sets
+[main](./main.py), [main2](./main2.py), [confusion matrix](./debug/confusion_matrix.py), [votting classifier](./debug/votting_clf.py)
 * Barycentre
 * KNN
 * SVM
+* Bagging
 * Votting classifier
 
 ## 4. Youhou !!
