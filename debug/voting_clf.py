@@ -18,13 +18,13 @@ from features.barycentre import BaryCentre
 
 csv_files = glob.glob("..\\dataset\\processed\\" + "**/*.csv")
 features_directory = "..\\dataset\\features\\"
-output_directory = "..\\dataset\\votting_clf\\"
+output_directory = "..\\dataset\\voting_clf\\"
 
 shutil.rmtree(output_directory, ignore_errors=True)
 os.makedirs(output_directory)
 feature_name = "features_erbfcc"
 
-votting_classifier = VotingClassifier(estimators=[
+voting_classifier = VotingClassifier(estimators=[
     ('knn', KNeighborsClassifier(weights='distance', n_neighbors=3, n_jobs=-1)),
     ('svm_1', SVC(probability=True, random_state=0, kernel='linear', gamma='scale')),
     ('svm_2', SVC(probability=True, random_state=0, kernel='rbf', gamma='scale')),
@@ -61,7 +61,7 @@ for csv_file in csv_files:
 
     save_path = f"{output_directory}{csv_name}_{feature_name}_votting_classifier.png"
 
-    result_learning_curve = lc.new_learning_curve(votting_classifier, features_adult, sounds_adult, features_child,
+    result_learning_curve = lc.new_learning_curve(voting_classifier, features_adult, sounds_adult, features_child,
                                                   sounds_child, scoring=['accuracy', 'neg_log_loss'])
     pl.plot_curves(result_learning_curve, scoring=['accuracy', 'neg_log_loss'], features_name=feature_name,
                    classifier_name="votting_classifier",
