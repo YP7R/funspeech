@@ -1,4 +1,5 @@
 # Funspeech, *Bachelor Final work* 
+* [https://gradechelor.hesge.ch/2019/documents/Perez-468](https://gradechelor.hesge.ch/2019/documents/Perez-468)
 
 ## 0. Collect dataset : Western Michigan University or FunSpeech
 * https://homepages.wmich.edu/~hillenbr/voweldata.html
